@@ -5,6 +5,7 @@ All proposed interview questions along with solutions.
 
 Each week, I'll post an implemented solution for a common interview problem I've either encountered or given to others.
 
+- [Crime Scene](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L34): Given a list of heights in a line where the front of the line is at the end of the array, return the number of people tall enough to see the front of the line. In order to be tall enough, the person must be taller than all of the people in front of them.
 
 ---
 ### COS 226: Spring 2020
@@ -13,7 +14,7 @@ COS 226 Precept P04A Spring 2020 - All interview questions of the day with solut
 
 Each week, I'll post the solution to a common interview problem I've either encountered or given to candidates. I'll try and keep the list of problems below up to date!
 
-- [Max Profit for Single Stock Trade](https://github.com/cdsciavolino/InterviewQuestionOfTheDay_SP20/blob/master/IQOD/src/QuestionSolutions.java#L26) ([Leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)): Given a list of stock prices over a series of days, find the maximum profit possible by executing a single trade (one buy and one sell).
+- [Max Profit for Single Stock Trade](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsSP20.java#L33) ([Leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)): Given a list of stock prices over a series of days, find the maximum profit possible by executing a single trade (one buy and one sell).
 
 - [Apartment Ocean View](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsSP20.java#L67): Given a list of building heights, suppose there is an ocen view at the end of the array. A building has an ocean view if its height is greater than all buildings between it and the ocean. Count the number of buildings with an ocean view.
 
