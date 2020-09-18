@@ -7,6 +7,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Crime Scene](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L34): Given a list of heights in a line where the front of the line is at the end of the array, return the number of people tall enough to see the front of the line. In order to be tall enough, the person must be taller than all of the people in front of them.
 
+- [Stack with Queues](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L79) [(Leetcode)](https://leetcode.com/problems/implement-stack-using-queues/): Implement a stack only using queues. You may only use a maximum of two queues and must assume FIFO ordering (not a doubly-linked list).
+
 ---
 ### COS 226: Spring 2020
 
