@@ -14,6 +14,16 @@ public class SolutionsFA20 {
      * who could see the murder at the front. A person can only see the front of the line if he/she
      * is taller than all of the people in front of them.
      *
+     * Visually, the line [ 5, 2, 4, 1, 3, 1 ] would look like:
+     *
+     *              x
+     *              x     x
+     *              x     x     x
+     *              x  x  x     x
+     *              x  x  x  x  x  x
+     *              __________________  ---(crime scene)---
+     *          i = 0  1  2  3  4  5
+     *
      * Examples:
      *  (1)     Input: (Back of Line) [5, 2, 4, 1, 3] (Front of line)
      *          Output: 3
@@ -55,5 +65,77 @@ public class SolutionsFA20 {
         }
          return observers.size();
         // ===== !Implementation 2: =====
+    }
+
+    /**
+     * [Stack with Queues]
+     * Implement a Stack (.push(x), .pop(), .peek(), and .isEmpty()) using only
+     * queues. You may (at most) use two queues.
+     *
+     * Leetcode: https://leetcode.com/problems/implement-stack-using-queues/
+     *
+     * @param <T> The type param of items stored in the Stack
+     */
+    public static class StackWithQueues<T> {
+        Queue<T> q1 = new LinkedList<T>(); // Contains all the elements
+        Queue<T> q2 = new LinkedList<T>(); // Used for .pop() operation
+        T top = null; // Element at the top of the stack
+
+        /**
+         * Add `elem` to the top of the stack.
+         * @param elem the element to add
+         */
+        public void push(T elem) {
+            q1.add(elem);
+            top = elem;
+        }
+
+        /**
+         * Remove and return the element at the top of the stack.
+         *
+         * Note: This implementation is O(1) for .push() and O(n) for .pop()
+         * This can be reversed by moving the shifting around into the .push()
+         * method, which would keep the .pop() method constant time. Depending on
+         * read/write load, different implementations would be stronger.
+         *
+         * @return the element on the top of the stack
+         */
+        public T pop() {
+            // Save the top to return
+            T toReturn = top;
+
+            // Move all elements to the second queue except for the last
+            while (q1.size() > 1) {
+                top = q1.poll();
+                q2.add(top);
+            }
+
+            // Remove the last element we're returning
+            q1.poll();
+
+            // Swap the queues for the next .pop() call
+            Queue<T> tmp = q1;
+            q1 = q2;
+            q2 = tmp;
+
+            // Return the value popped off
+            return toReturn;
+        }
+
+        /**
+         * Return the value of the element at the top of the stack.
+         * @return T at the top of the stack
+         */
+        public T peek() {
+            return top;
+        }
+
+        /**
+         * True if and only if the stack is empty.
+         * @return whether the stack has any elements
+         */
+        public boolean isEmpty() {
+            return q1.isEmpty();
+        }
     }
 }
