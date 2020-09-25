@@ -9,6 +9,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Stack with Queues](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L79) [(Leetcode)](https://leetcode.com/problems/implement-stack-using-queues/): Implement a stack only using queues. You may only use a maximum of two queues and must assume FIFO ordering (not a doubly-linked list).
 
+- [Fill Backpack with Nearby Toys](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L163): Given a list of toy weights and the capacity of a backpack, find the maximum number of toys you can fit within the backpack. You may only grab 1 contiguous sequence of toys.
+
 ---
 ### COS 226: Spring 2020
 
