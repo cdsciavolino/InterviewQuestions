@@ -41,7 +41,7 @@ public class SolutionsFA20 {
      * @param heights - List of heights of the people in the line. Front of the line is at the end of the array.
      * @return - integer corresponding to the number of people who can see the front of the line
      */
-    public static int crimeScene(int[] heights) {
+    static int crimeScene(int[] heights) {
         // ===== Implementation 1: ======
         // Scan from end of the array
         int maxHeight = Integer.MIN_VALUE;
@@ -76,7 +76,7 @@ public class SolutionsFA20 {
      *
      * @param <T> The type param of items stored in the Stack
      */
-    public static class StackWithQueues<T> {
+    static class StackWithQueues<T> {
         Queue<T> q1 = new LinkedList<T>(); // Contains all the elements
         Queue<T> q2 = new LinkedList<T>(); // Used for .pop() operation
         T top = null; // Element at the top of the stack
@@ -137,5 +137,52 @@ public class SolutionsFA20 {
         public boolean isEmpty() {
             return q1.isEmpty();
         }
+    }
+
+    /**
+     * [Nearby Toys in Backpack]
+     *
+     * You're putting toys in a backpack. Each toy has a weight and
+     * your backpack can only hold so much weight. The goal is to
+     * maximize the number of toys you can put in your backpack
+     * without going over the capacity.
+     *
+     * **IMPORTANT** One constraint is that you can only grab *one
+     * contiguous series of toys*. That is, suppose you had toy[] of:
+     * [ 1, 2, 3 ]. This means you can only grab [1,2,3], [1,2],
+     * [2,3], [1], [2], [3], but NOT [1,3] because they aren't next
+     * to each other.
+     *
+     * Return the maximum number of toys you can bring in your
+     * backpack.
+     *
+     * @param toys - list of toy weights in order.
+     * @param capacity - maximum weight of toys you can bring.
+     * @return the maximum number of toys you can bring.
+     */
+    static int fillBackpack(int[] toys, int capacity) {
+        // Weight of all toys in [left, right)
+        int windowSum = 0;
+
+        // Boundaries of the window
+        int left = 0;
+        int right = 0;
+
+        // Best weight found so far
+        int maxToys = 0;
+
+        while (right < toys.length) {
+            // Add the weight of the toy introduced at the boundary
+            windowSum += toys[right];
+
+            // Drop items as needed until within capacity
+            while (windowSum > capacity)
+                windowSum -= toys[left++];
+
+            // Keep track of the most toys observed so far
+            maxToys = Math.max(maxToys, right - left + 1);
+            right++;
+        }
+        return maxToys;
     }
 }

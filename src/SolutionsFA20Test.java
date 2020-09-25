@@ -42,4 +42,21 @@ public class SolutionsFA20Test {
         assertEquals(6, stack.pop());
         assertEquals(4, stack.pop());
     }
+
+    @Test
+    public void testFillBackpack() {
+        assertEquals(2, SolutionsFA20.fillBackpack(new int[]{1, 2, 3}, 3));
+        assertEquals(2, SolutionsFA20.fillBackpack(new int[]{1, 2, 3}, 5));
+        assertEquals(3, SolutionsFA20.fillBackpack(new int[]{1, 2, 3}, 6));
+        assertEquals(3, SolutionsFA20.fillBackpack(new int[]{1, 2, 3}, 7));
+        assertEquals(1, SolutionsFA20.fillBackpack(new int[]{1, 2, 3}, 1));
+        assertEquals(1, SolutionsFA20.fillBackpack(
+                new int[]{1, 2, 3, 1, 7, 2, 4, 9},
+                2
+        ));
+        assertEquals(4, SolutionsFA20.fillBackpack(
+                new int[]{1, 2, 3, 1, 7, 2, 4, 9},
+                12
+        ));
+    }
 }
