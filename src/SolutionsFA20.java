@@ -185,4 +185,65 @@ public class SolutionsFA20 {
         }
         return maxToys;
     }
+
+    /**
+     * [Minimum Remove Parentheses to Make Valid]
+     * Given a String of parentheses '(', ')' and lowercase English characters, return
+     * the same string with any unnecessary parentheses to make the string valid. A
+     * valid string will have:
+     * - All opening parentheses match with one closing parentheses
+     * - All opening parentheses occur to the left of the closing parentheses
+     * - All closing parentheses match with one opening parentheses
+     *
+     *  Leetcode Reference: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+     *
+     *  Examples
+     *      Input: "lee(t(c)o)de)"
+     *      Output: "lee(t(c)o)de" || "lee(t(co)de)" || "lee(t(c)ode)"
+     *      Why: One closing parenthesis must be removed to make the string valid
+     *
+     *      Input: "a)b(c)d"
+     *      Output: "ab(c)d
+     *      Why: The first closing parentheses must be removed
+     *
+     *      Input: s = "))(("
+     *      Output: ""
+     *      Why: An empty string is also a valid return value.
+     *
+     *      Input: s = "(a(b(c)d)"
+     *      Output: "a(b(c)d)" || "(a(bc)d)" || "(ab(c)d)"
+     *      Why: One opening parenthesis must be removed.
+     *
+     * @param s - String of parentheses and characters
+     * @return Filtered string s with minimum parentheses removed
+     */
+    static String minRemoveParentheses(String s) {
+        // Indices of all the opening parentheses in the String s
+        Stack<Integer> openInds = new Stack<Integer>();
+
+        // Indices of unnecessary parentheses to omit
+        Set<Integer> skipInds = new HashSet<Integer>();
+
+        // (1) Identify all the indices to omit
+        for (int i = 0; i < s.length(); i++) {
+            char curCh = s.charAt(i);
+            if (curCh == '(') openInds.push(i);
+            else if (curCh == ')') {
+                if (openInds.isEmpty()) skipInds.add(i);
+                else openInds.pop();
+            }
+        }
+
+        // Add all remaining open parentheses indices
+        while (!openInds.isEmpty())
+            skipInds.add(openInds.pop());
+
+        // (2) Reconstruct the resulting string with omitted characters
+        StringBuilder filtered = new StringBuilder();
+        for (int i = 0; i < s.length(); i++)
+            if (!skipInds.contains(i))
+                filtered.append(s.charAt(i));
+
+        return filtered.toString();
+    }
 }

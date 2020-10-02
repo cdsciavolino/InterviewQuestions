@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolutionsFA20Test {
@@ -58,5 +61,23 @@ public class SolutionsFA20Test {
                 new int[]{1, 2, 3, 1, 7, 2, 4, 9},
                 12
         ));
+    }
+
+    @Test
+    public void testMinRemoveParentheses() {
+        Set<String> expected = new HashSet<String>();
+        expected.add("lee(t(c)o)de");
+        expected.add("lee(t(co)de)");
+        expected.add("lee(t(c)ode)");
+        assertTrue(expected.contains(SolutionsFA20.minRemoveParentheses("lee(t(c)o)de)")));
+
+        assertEquals("ab(c)d", SolutionsFA20.minRemoveParentheses("a)b(c)d"));
+        assertEquals("", SolutionsFA20.minRemoveParentheses("))(("));
+
+        expected = new HashSet<String>();
+        expected.add("a(b(c)d)");
+        expected.add("(a(bc)d)");
+        expected.add("(ab(c)d)");
+        assertTrue(expected.contains(SolutionsFA20.minRemoveParentheses("(a(b(c)d)")));
     }
 }
