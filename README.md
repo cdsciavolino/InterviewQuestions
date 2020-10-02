@@ -11,6 +11,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Fill Backpack with Nearby Toys](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L163): Given a list of toy weights and the capacity of a backpack, find the maximum number of toys you can fit within the backpack. You may only grab 1 contiguous sequence of toys.
 
+- [Min Remove Parentheses for Valid String](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L220) [(Leetcode)](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/): Given a string, return the same string with the minimum amount of unnecessary parentheses removed to make the string valid.
+
 ---
 ### COS 226: Spring 2020
 
