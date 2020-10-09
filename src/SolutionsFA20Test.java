@@ -80,4 +80,13 @@ public class SolutionsFA20Test {
         expected.add("(ab(c)d)");
         assertTrue(expected.contains(SolutionsFA20.minRemoveParentheses("(a(b(c)d)")));
     }
+
+    @Test
+    public void testMinRoomsRequired() {
+        int[][] meetings = {
+                {1,5}, {10,20}, {5,8}, {3,4},
+                {4,7}, {11,15}, {1,5}
+        };
+        assertEquals(3, SolutionsFA20.minimumMeetingRooms(meetings));
+    }
 }

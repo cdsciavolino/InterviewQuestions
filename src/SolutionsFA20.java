@@ -2,6 +2,7 @@
  * Solutions to Interview Questions of the Day for
  * COS 226 Precept P07 - Fall 2020
  */
+
 import java.util.*;
 
 public class SolutionsFA20 {
@@ -245,5 +246,90 @@ public class SolutionsFA20 {
                 filtered.append(s.charAt(i));
 
         return filtered.toString();
+    }
+
+    /**
+     * [Minimum Required Meeting Rooms]
+     * Given a list of meetings that require meeting rooms in the form
+     * (startTime, endTime), return the minimum number of rooms required
+     * to accommodate all meetings.
+     *
+     * Leetcode: https://leetcode.com/problems/meeting-rooms-ii/
+     * Non-premium: https://www.programcreek.com/2014/05/leetcode-meeting-rooms-ii-java/
+     *
+     * Example
+     *  Input: [(1,5), [10,20], [5,8], [3,4], [4,7], [11,15], [1,5]]
+     *
+     *  1  2  3  4  5  6  7  8  9  10
+     *  1-----------5
+     *  1-----------5
+     *        3--4
+     *           4--------7
+     *              5--------8
+     *  Output: 3
+     *  Why: We need to accommodate (1,5), (1,5), (3,4) and (4,7) all at once --> 4 meeting rooms
+     *
+     * @param meetings: List of [start,end] times for meetings
+     * @return minimum number of meeting rooms required to accommodate all meetings.
+     */
+    static int minimumMeetingRooms(int[][] meetings) {
+        // Simulate running each meeting. Initially all meetings haven't started
+        PriorityQueue<Interval> pq = new PriorityQueue<Interval>();
+        for (int[] meeting : meetings) {
+            pq.add(new Interval(meeting[0], meeting[1]));
+        }
+
+        // Current amount of meetings happening
+        int nMeetings = 0;
+        int mostConcurrentMeetings = 0;
+        while (!pq.isEmpty()) {
+            Interval nextPt = pq.poll();
+            if (nextPt.hasStarted) {
+                // Endpoint for a meeting, decrement nMeetings
+                nMeetings--;
+            } else {
+                // Beginning of a meeting, increment nMeetings and update max concurrent meetings
+                nMeetings++;
+                mostConcurrentMeetings = Math.max(nMeetings, mostConcurrentMeetings);
+
+                // Mark the meeting as started and add it back to the PQ
+                nextPt.hasStarted = true;
+                pq.add(nextPt);
+            }
+        }
+
+        return mostConcurrentMeetings;
+    }
+
+    private static class Interval implements Comparable<Interval> {
+        int start;              // Start of the meeting
+        int end;                // End of the meeting
+        boolean hasStarted;     // True iff the meeting has started
+
+        Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        // If the meeting has started, then priority is the end time.
+        // Otherwise priority is the start time.
+        int priority() {
+            return hasStarted ? end : start;
+        }
+
+        @Override
+        public int compareTo(Interval that) {
+            int thisPriority = priority();
+            int thatPriority = that.priority();
+
+            // One meeting comes before another
+            if (thisPriority != thatPriority)
+                return thisPriority - thatPriority;
+
+            // Break ties with the ending meeting being polled first
+            if (hasStarted && !that.hasStarted) return -1;
+            if (!hasStarted && that.hasStarted) return 1;
+            return 0;
+        }
     }
 }
