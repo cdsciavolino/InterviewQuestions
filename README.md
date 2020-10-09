@@ -13,6 +13,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Min Remove Parentheses for Valid String](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L220) [(Leetcode)](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/): Given a string, return the same string with the minimum amount of unnecessary parentheses removed to make the string valid.
 
+- [Min. Required Meeting Rooms](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L275) [(Leetcode)](https://www.lintcode.com/problem/meeting-rooms-ii/description): Given a list of meetings (denoted by their start/end times) asking for a room, return the minimum number of rooms required to accommodate all meetings.
+
 ---
 ### COS 226: Spring 2020
 
