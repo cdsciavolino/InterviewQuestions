@@ -15,6 +15,10 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Min. Required Meeting Rooms](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L275) [(Leetcode)](https://www.lintcode.com/problem/meeting-rooms-ii/description): Given a list of meetings (denoted by their start/end times) asking for a room, return the minimum number of rooms required to accommodate all meetings.
 
+- [Are Anagrams](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L361) [(Leetcode)](http://leetcode.com/problems/valid-anagram/): Given two words, determine whether or not they are [anagrams](https://en.wikipedia.org/wiki/Anagram).
+
+- [Group Anagrams](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L396) [(Leetcode)](http://leetcode.com/problems/group-anagrams/): Given a list of words, group them based on whether they are [anagrams](https://en.wikipedia.org/wiki/Anagram).
+
 ---
 ### COS 226: Spring 2020
 
