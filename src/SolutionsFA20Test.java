@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,5 +90,54 @@ public class SolutionsFA20Test {
                 {4,7}, {11,15}, {1,5}
         };
         assertEquals(3, SolutionsFA20.minimumMeetingRooms(meetings));
+    }
+
+    @Test
+    public void testAreAnagrams() {
+        assertTrue(SolutionsFA20.areAnagrams("vase", "save"));
+        assertTrue(SolutionsFA20.areAnagrams("vase", "asve"));
+        assertTrue(SolutionsFA20.areAnagrams("rhcis", "chris"));
+        assertTrue(SolutionsFA20.areAnagrams("", ""));
+        assertFalse(SolutionsFA20.areAnagrams("abc", "cbb"));
+        assertFalse(SolutionsFA20.areAnagrams("chris", "vase"));
+        assertFalse(SolutionsFA20.areAnagrams("vase", "vaseva"));
+        assertFalse(SolutionsFA20.areAnagrams("", "vaseva"));
+    }
+
+    @Test
+    public void testGroupAnagrams() {
+        String[] words = {"vase", "save", "asve", "chris", "rhcis", "abc"};
+        List<List<String>> grouped = SolutionsFA20.groupAnagrams(words);
+        assertEquals(3, grouped.size());
+
+        boolean foundVase = false;
+        for (List<String> group : grouped) {
+            boolean foundWords = true;
+            for (String word : new String[]{"vase", "save", "asve"}) {
+                foundWords = foundWords && group.contains(word);
+            }
+            foundVase = foundVase || foundWords;
+        }
+        assertTrue(foundVase);
+
+        boolean foundChris = false;
+        for (List<String> group : grouped) {
+            boolean foundWords = true;
+            for (String word : new String[]{"chris", "rhcis"}) {
+                foundWords = foundWords && group.contains(word);
+            }
+            foundChris = foundChris || foundWords;
+        }
+        assertTrue(foundChris);
+
+        boolean foundAbc = false;
+        for (List<String> group : grouped) {
+            boolean foundWords = true;
+            for (String word : new String[]{"abc"}) {
+                foundWords = foundWords && group.contains(word);
+            }
+            foundAbc = foundAbc || foundWords;
+        }
+        assertTrue(foundAbc);
     }
 }

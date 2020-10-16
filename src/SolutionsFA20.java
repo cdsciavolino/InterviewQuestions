@@ -4,6 +4,7 @@
  */
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SolutionsFA20 {
     /**
@@ -199,21 +200,21 @@ public class SolutionsFA20 {
      *  Leetcode Reference: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
      *
      *  Examples
-     *      Input: "lee(t(c)o)de)"
-     *      Output: "lee(t(c)o)de" || "lee(t(co)de)" || "lee(t(c)ode)"
-     *      Why: One closing parenthesis must be removed to make the string valid
+     *      (1)     Input: "lee(t(c)o)de)"
+     *              Output: "lee(t(c)o)de" || "lee(t(co)de)" || "lee(t(c)ode)"
+     *              Why: One closing parenthesis must be removed to make the string valid
      *
-     *      Input: "a)b(c)d"
-     *      Output: "ab(c)d
-     *      Why: The first closing parentheses must be removed
+     *      (2)     Input: "a)b(c)d"
+     *              Output: "ab(c)d
+     *              Why: The first closing parentheses must be removed
      *
-     *      Input: s = "))(("
-     *      Output: ""
-     *      Why: An empty string is also a valid return value.
+     *      (3)     Input: s = "))(("
+     *              Output: ""
+     *              Why: An empty string is also a valid return value.
      *
-     *      Input: s = "(a(b(c)d)"
-     *      Output: "a(b(c)d)" || "(a(bc)d)" || "(ab(c)d)"
-     *      Why: One opening parenthesis must be removed.
+     *      (4)     Input: s = "(a(b(c)d)"
+     *              Output: "a(b(c)d)" || "(a(bc)d)" || "(ab(c)d)"
+     *              Why: One opening parenthesis must be removed.
      *
      * @param s - String of parentheses and characters
      * @return Filtered string s with minimum parentheses removed
@@ -331,5 +332,103 @@ public class SolutionsFA20 {
             if (!hasStarted && that.hasStarted) return 1;
             return 0;
         }
+    }
+
+    /**
+     * [Anagrams]
+     *  Given two words, determine whether or not they are anagrams of one another. Two words
+     *  are anagrams if they consist of the same characters and are the same length.
+     *
+     *  Leetcode Reference: https://leetcode.com/problems/valid-anagram/
+     *
+     *  Examples
+     *      (1)     Input: "save", "vase"
+     *              Output: True
+     *              Why: Both words have 1 s, 1 v, 1 a, and 1 e
+     *
+     *      (2)     Input: vase and vasesa
+     *              Output: False
+     *              Why: They consist of the same letters, but are not the same length
+     *
+     *      (3)     Input: chris and vase
+     *              Output: False
+     *              Why: They do not consist of the same letters and are different lengths
+     *
+     * @param word1 the first word
+     * @param word2 the second word
+     * @return true iff word1 and word2 are anagrams
+     */
+    static boolean areAnagrams(String word1, String word2) {
+        if (word1.length() != word2.length()) return false;
+
+        // (1) Count all the character frequencies from word1
+        Map<Character, Integer> chCounts = new HashMap<Character, Integer>();
+        for (int i = 0; i < word1.length(); i++) {
+            char curCh = word1.charAt(i);
+            chCounts.put(curCh, chCounts.getOrDefault(curCh, 0) + 1);
+        }
+
+        // (2) Check each character in word2 is in word 1.
+        for (int i = 0; i < word2.length(); i++) {
+            char curCh = word2.charAt(i);
+            if (!chCounts.containsKey(curCh)) return false;
+            if (chCounts.get(curCh) == 0) return false;
+            chCounts.put(curCh, chCounts.get(curCh) - 1);
+        }
+        return true;
+    }
+
+    /**
+     * [Group Anagrams]
+     *  Given a list of words, return all of the words groups based on their anagrams.
+     *
+     *  Leetcode Reference: https://leetcode.com/problems/group-anagrams/
+     *
+     *  Example
+     *      Input: [ “save”, “vase”, “avse”, “chris”, “rhcis”, “abc”]
+     *      Output: [["save", "vase", "avse"], ["chris", "rhcis"], ["abc"]]
+     *      Why: save, vase, and avse are all anagrams. chris and rhcis are anagrams. abc doesn't
+     *           have any matching anagrams
+     *
+     * @param words list of words to consider
+     * @return all the words within words, grouped by anagrams
+     */
+    static List<List<String>> groupAnagrams(String[] words) {
+        // Solution 1: Sort the words and use these as keys
+        Map<String, List<String>> anagramGroups = new HashMap<String, List<String>>();
+        for (String word : words) {
+            // (1) Sort the string
+            char[] wordChs = word.toCharArray();
+            Arrays.sort(wordChs);
+            String sorted = new String(wordChs);
+
+            // (2) Add it to the AnagramGroups
+            if (!anagramGroups.containsKey(sorted))
+                anagramGroups.put(sorted, new ArrayList<String>());
+            anagramGroups.get(sorted).add(word);
+        }
+        // !Solution 1.
+
+        // Solution 2: Generate a serialized representation using the characters
+        final int CHARSET_SIZE = 26; // Assume only lowercase letters
+        anagramGroups = new HashMap<String, List<String>>();
+        for (String word : words) {
+            // (1) Count the characters
+            int[] charFreqs = new int[CHARSET_SIZE];
+            for (int i = 0; i < word.length(); i++)
+                charFreqs[word.charAt(i) - 'a']++;
+
+            // (2) Build a String representation
+            StringBuilder serialized = new StringBuilder();
+            for (int charFreq : charFreqs)
+                serialized.append(charFreq).append('#');
+
+            // (3) Add the word to the group given the String representation
+            if (!anagramGroups.containsKey(serialized.toString()))
+                anagramGroups.put(serialized.toString(), new ArrayList<String>());
+            anagramGroups.get(serialized.toString()).add(word);
+        }
+        // !Solution 2.
+         return new ArrayList<List<String>>(anagramGroups.values());
     }
 }
