@@ -140,4 +140,23 @@ public class SolutionsFA20Test {
         }
         assertTrue(foundAbc);
     }
+
+    @Test
+    void testRightSideView() {
+        SolutionsFA20.TreeNode root = new SolutionsFA20.TreeNode(1);
+        root.left = new SolutionsFA20.TreeNode(2);
+        root.left.right = new SolutionsFA20.TreeNode(5);
+        root.right = new SolutionsFA20.TreeNode(3);
+        root.right.right = new SolutionsFA20.TreeNode(4);
+        int[] expected = {1, 3, 4};
+        List<Integer> computed = SolutionsFA20.rightSideView(root);
+        for (int i = 0; i < expected.length; i++)
+            assertEquals(expected[i], computed.get(i));
+
+        root.left.right.left = new SolutionsFA20.TreeNode(6);
+        expected = new int[]{1, 3, 4, 6};
+        computed = SolutionsFA20.rightSideView(root);
+        for (int i = 0; i < expected.length; i++)
+            assertEquals(expected[i], computed.get(i));
+    }
 }

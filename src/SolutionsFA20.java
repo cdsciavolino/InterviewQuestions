@@ -431,4 +431,68 @@ public class SolutionsFA20 {
         // !Solution 2.
          return new ArrayList<List<String>>(anagramGroups.values());
     }
+
+    /**
+     * [Right-side Tree View]
+     * Given the root of a binary tree, return the list of values that would be
+     * seen by standing on the right side of the tree.
+     *
+     * Leetcode Reference: https://leetcode.com/problems/binary-tree-right-side-view/
+     *
+     * Example
+     *  Input:
+     *         1            <---
+     *       /   \
+     *      2     3         <---
+     *       \     \
+     *        5     4       <---
+     *  Output: [1, 3, 4]
+     *  Why: 1 is the root. 3 covers 2 so 3 would be the right-most value at level 1. Similarly 4
+     *       covers 5 and is the right-most value at level 2.
+     *
+     * @param root root of the given binary tree
+     * @return the values associated with the right-most nodes at each level
+     */
+    static List<Integer> rightSideView(TreeNode root) {
+        if (root == null) return new ArrayList<Integer>();
+
+        // rightValues.get(lev) is the right-most value at level lev
+        List<Integer> rightValues = new ArrayList<Integer>();
+        Queue<TreeNode> nextNodes = new LinkedList<TreeNode>();
+        nextNodes.add(root);
+        while (!nextNodes.isEmpty()) {
+            // The number of nodes on the queue at this point is the number
+            // of nodes on the particular level.
+            int levelWidth = nextNodes.size();
+
+            TreeNode rightMost = null;
+            for (int i = 0; i < levelWidth; i++) {
+                // Update rightMost for each node on the level. Will be the
+                // right-most node after the for-loop terminates.
+                rightMost = nextNodes.poll();
+
+                // Gets rid of compile warning. We know there will be at least one node
+                // bc. of lines 440 and 441. 448+449 prevent nulls from being added to Queue.
+                // Initial root check on line 436 prevents root being null from throwing error.
+                assert rightMost != null;
+
+                // Only add non-null children to the queue.
+                if (rightMost.left != null) nextNodes.add(rightMost.left);
+                if (rightMost.right != null) nextNodes.add(rightMost.right);
+            }
+            rightValues.add(rightMost.data);
+        }
+
+        return rightValues;
+    }
+
+    // Simple Node class for a binary tree
+    static class TreeNode {
+        int data;               // Underlying data for this node
+        TreeNode left, right;   // Left/right child pointers
+
+        TreeNode(int data) {
+            this.data = data;
+        }
+    }
 }
