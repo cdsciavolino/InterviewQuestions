@@ -159,4 +159,15 @@ public class SolutionsFA20Test {
         for (int i = 0; i < expected.length; i++)
             assertEquals(expected[i], computed.get(i));
     }
+
+    @Test
+    void testCloudySky() {
+        int[][] example = {
+                { 1, 1, 0, 0, 1 },
+                { 1, 1, 0, 1, 1 },
+                { 0, 0, 1, 0, 0 },
+                { 0, 0, 1, 1, 1 },
+        };
+        assertEquals(3, SolutionsFA20.cloudySky(example));
+    }
 }

@@ -495,4 +495,70 @@ public class SolutionsFA20 {
             this.data = data;
         }
     }
+
+    /**
+     * [Cloudy Sky]
+     * Given a grid of 0s and 1s, return the number of unique clouds there are (1 being
+     * a cloud and 0 being blue sky). Assume the edges are blue sky. Connections are only between
+     * up, down, left, and right (no diagonals).
+     *
+     *  Leetcode Reference: https://leetcode.com/problems/number-of-islands/
+     *
+     * Example
+     *  Input: [[ 1, 1, 0, 0, 1 ],
+     *          [ 1, 1, 0, 1, 1 ],
+     *          [ 0, 0, 1, 0, 0 ],
+     *          [ 0, 0, 1, 1, 1 ]]
+     *  Output: 3
+     *  Why: Cloud clusters:
+     *          1. (0,0), (0,1), (1,0), (1,1)
+     *          2. (2,2), (3,2), (3,3), (3,4)
+     *          3. (0,4), (1,4), (1,3)
+     *
+     *  Possible Followup Questions
+     *      (1) What if we want to enforce constant additional space?
+     *      (2) How could we modify the above to account for diagonals?
+     *      (3) What if we made the edges wrap-around?
+     *      (4) How would we modify this if we replace 1s and 0s with arbitrary
+     *          numbers and we wanted to count connected components?
+     *
+     * @param sky contains the list of 0s and 1s
+     * @return the number of distinct clouds in the sky
+     */
+    static int cloudySky(int[][] sky) {
+        if (sky.length == 0 || sky[0].length == 0)
+            return 0;
+        int nRows = sky.length;
+        int nCols = sky[0].length;
+        int nClouds = 0;
+        boolean[][] visited = new boolean[nRows][nCols];
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
+                if (!visited[row][col] && sky[row][col] == 1) {
+                    buildCloud(sky, row, col, visited);
+                    nClouds++;
+                }
+            }
+        }
+        return nClouds;
+    }
+
+    // Recursive DFS of the sky, marking all available clouds in the visited[][].
+    private static void buildCloud(int[][] sky, int row, int col, boolean[][] visited) {
+        if (outOfSkyBounds(sky, row, col)) return;
+        if (visited[row][col]) return;
+        if (sky[row][col] != 1) return;
+
+        // Build this cloud
+        visited[row][col] = true;
+        buildCloud(sky, row-1, col, visited);
+        buildCloud(sky, row+1, col, visited);
+        buildCloud(sky, row, col-1, visited);
+        buildCloud(sky, row, col+1, visited);
+    }
+
+    // Return true iff the (row,col) pair out of bounds of the sky.
+    private static boolean outOfSkyBounds(int[][] sky, int row, int col) {
+        return row < 0 || row >= sky.length || col < 0 || col >= sky[0].length;
+    }
 }
