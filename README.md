@@ -21,6 +21,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Binary Tree Right-side View](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L456) [(Leetcode)](https://leetcode.com/problems/binary-tree-right-side-view/): Given a binary tree, return the right-most node at each level in the tree.
 
+- [Cloudy Sky](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L528) [(Leetcode)](https://leetcode.com/problems/number-of-islands/): Given a grid of 1s and 0s where 1s are clouds and 0s are clear sky, count the number of distinct clouds that are connected up/down/left/right.
+
 ---
 ### COS 226: Spring 2020
 
