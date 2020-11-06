@@ -170,4 +170,32 @@ public class SolutionsFA20Test {
         };
         assertEquals(3, SolutionsFA20.cloudySky(example));
     }
+
+    @Test
+    void testNQueens() {
+        String[] expected = {
+                "..Q.Q......Q.Q..",
+                ".Q.....QQ.....Q."
+        };
+        List<List<String>> computed = SolutionsFA20.nQueens(4);
+        for (List<String> board : computed) {
+            StringBuilder boardRowStr = new StringBuilder();
+            for (String row : board)
+                boardRowStr.append(row);
+            boolean foundMatch = false;
+            for (String expBoard : expected)
+                foundMatch = foundMatch || expBoard.equals(boardRowStr.toString());
+            assertTrue(foundMatch);
+        }
+        for (String expBoard : expected) {
+            boolean foundMatch = false;
+            for (List<String> board : computed) {
+                StringBuilder boardRowStr = new StringBuilder();
+                for (String row : board)
+                    boardRowStr.append(row);
+                foundMatch = foundMatch || boardRowStr.toString().equals(expBoard);
+            }
+            assertTrue(foundMatch);
+        }
+    }
 }

@@ -561,4 +561,91 @@ public class SolutionsFA20 {
     private static boolean outOfSkyBounds(int[][] sky, int row, int col) {
         return row < 0 || row >= sky.length || col < 0 || col >= sky[0].length;
     }
+
+    /**
+     * [N-Queens]
+     * Given an integer n, we want to place n queens on an (n x n) chess board. As
+     * a quick reminder, a queen can attack all squares on the same row, the same column,
+     * and along any diagonal, illustrated below:
+     *
+     *  n=4, Q = Queen, . = open, x means queen can attack this square
+     *          x   .   x   .
+     *          .   x   x   x
+     *          x   x   Q   x
+     *          .   x   x   x
+     *
+     *  Given n, return all boards with n queens placed such that no queen attacks another.
+     *  Input: n=4
+     *  Output:
+     *          [["..Q.",   [".Q..",
+     *            "Q...",    "...Q",
+     *            "...Q",    "Q...",
+     *            ".Q.."],   "..Q."]]
+     *
+     *  Leetcode Reference: https://leetcode.com/problems/n-queens/
+     *
+     * @param n number of queens to place, number of rows/cols on the board
+     * @return  all possible board configurations where n queens are placed and not attacking
+     *          one another.
+     */
+    static List<List<String>> nQueens(int numQueens) {
+        List<List<String>> winningBoards = new ArrayList<List<String>>();
+
+        char[][] board = new char[numQueens][numQueens];
+        for (int r = 0; r < numQueens; r++)
+            for (int c = 0; c < numQueens; c++)
+                board[r][c] = '.';
+        searchQueens(board, 0, winningBoards, new ArrayList<int[]>());
+        return winningBoards;
+    }
+
+    // Recursively DFS/Backtrack to find all solutions. Adds winning board to winningBoards.
+    private static void searchQueens(char[][] board, int curCol, List<List<String>> winningBoards, List<int[]> placedQueens) {
+        if (curCol == board.length) {
+            // No more queens to place!
+            winningBoards.add(copyBoard(board));
+            return;
+        }
+
+        // Enumerate and check all rows
+        for (int row = 0; row < board.length; row++) {
+            if (noQueenConflict(placedQueens, row, curCol)) {
+                // Set this position to a Queen
+                board[row][curCol] = 'Q';
+                placedQueens.add(new int[]{ row, curCol });
+
+                // Recursively search for solutions with this placement
+                searchQueens(board, curCol+1, winningBoards, placedQueens);
+
+                // "Undo" the placement of this queen and continue searching
+                board[row][curCol] = '.';
+                placedQueens.remove(placedQueens.size()-1);
+            }
+        }
+    }
+
+    // Return a copy of the board as a List<String>
+    private static List<String> copyBoard(char[][] board) {
+        List<String> copy = new ArrayList<String>();
+        for (char[] rowCh : board) {
+            StringBuilder row = new StringBuilder();
+            for (int c = 0; c < board.length; c++)
+                row.append(rowCh[c]);
+            copy.add(row.toString());
+        }
+        return copy;
+    }
+
+    // Return true iff (row,col) conflicts with another placed queen
+    private static boolean noQueenConflict(List<int[]> placedQueens, int row, int col) {
+        for (int[] placedQueen : placedQueens) {
+            int rowDiff = Math.abs(placedQueen[0] - row);
+            int colDiff = Math.abs(placedQueen[1] - col);
+
+            // (row confict || diagonal conflict)
+            if (rowDiff == 0 || rowDiff == colDiff)
+                return false;
+        }
+        return true;
+    }
 }
