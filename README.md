@@ -23,6 +23,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [Cloudy Sky](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L528) [(Leetcode)](https://leetcode.com/problems/number-of-islands/): Given a grid of 1s and 0s where 1s are clouds and 0s are clear sky, count the number of distinct clouds that are connected up/down/left/right.
 
+- [N Queens Problem](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L591) [(Leetcode)](https://leetcode.com/problems/n-queens/): Given a number n, consider an (n x n) chess board. Return all possible boards with n queens placed such that no placed queen attacks another.
+
 ---
 ### COS 226: Spring 2020
 
