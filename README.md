@@ -25,6 +25,8 @@ Each week, I'll post an implemented solution for a common interview problem I've
 
 - [N Queens Problem](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L591) [(Leetcode)](https://leetcode.com/problems/n-queens/): Given a number n, consider an (n x n) chess board. Return all possible boards with n queens placed such that no placed queen attacks another.
 
+- [Top-k Words by Frequency](https://github.com/cdsciavolino/InterviewQuestions/blob/master/src/SolutionsFA20.java#L678) [(Leetcode)](https://leetcode.com/problems/top-k-frequent-words/): Given a (potentially very large) collection of words, return the top-k most frequently occurring words. Break ties lexicographically.
+
 ---
 ### COS 226: Spring 2020
 
