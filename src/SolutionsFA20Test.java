@@ -198,4 +198,19 @@ public class SolutionsFA20Test {
             assertTrue(foundMatch);
         }
     }
+
+    @Test
+    void testTopKWords() {
+        String[] ex1 = {"i", "love", "leetcode", "i", "love", "coding"};
+        String[] ex2 = {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"};
+        String[] expected = {"i", "love"};
+        int idx = 0;
+        for (String predWord : SolutionsFA20.topKWords(ex1, 2))
+            assertEquals(expected[idx++], predWord);
+
+        expected = new String[]{"the", "is", "sunny", "day"};
+        idx = 0;
+        for (String predWord : SolutionsFA20.topKWords(ex2, 4))
+            assertEquals(expected[idx++], predWord);
+    }
 }

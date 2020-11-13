@@ -648,4 +648,56 @@ public class SolutionsFA20 {
         }
         return true;
     }
+
+    /**
+     * [Top-k Retrieval]
+     * Given a (potentially very large) corpus (text base) of words, return a
+     * list of the top-k most frequently words. Break ties lexicographically.
+     *
+     * Leetcode Reference: https://leetcode.com/problems/top-k-frequent-words/
+     *
+     *  Examples
+     *      Input: ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], k=4
+     *      Output: ["the", "is", "sunny", "day"]
+     *      Why: The occurs 4 times, is occurs 3 times, sunny occurs twice, and day occurs once
+     *
+     *      Input: [dog, dog, dog, cat, cat, snake, fish, bird], k=4
+     *      Output: [dog, cat, bird, fish]
+     *      Why: dog occurs 3 times and cat twice. Snake, fish, and bird all occur once, so we accept
+     *           bird and fish because they come first lexicographically.
+     *
+     *  Follow up questions:
+     *      - What if we wanted to exclude a given list of stop-words?
+     *      - Do you account for case in your analysis?
+     *      - What if we couldn't use a PriorityQueue?
+     *      - What if we couldn't use sorting?
+     *
+     * @param corpus List of words within a large text document
+     * @return the top-k most frequent words in the corpus
+     */
+    static List<String> topKWords(String[] corpus, int k) {
+        // Count all the words in the corpus
+        Map<String, Integer> wordCounts = new HashMap<String, Integer>();
+        for (String word : corpus)
+            wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
+
+        // Use a PriorityQueue to store the top-k words
+        // Order by (1) frequency and (2) lexicographic order
+        PriorityQueue<String> topK = new PriorityQueue<String>(
+                (String w1, String w2) ->
+                        wordCounts.get(w1).equals(wordCounts.get(w2))
+                                ? w2.compareTo(w1)
+                                : wordCounts.get(w1) - wordCounts.get(w2)
+        );
+        for (String word : wordCounts.keySet()) {
+            topK.add(word);
+            if (topK.size() > k) topK.poll();
+        }
+
+        // Copy the top-k words from the PQ into a list in reverse order
+        List<String> topWords = new LinkedList<String>();
+        while (!topK.isEmpty())
+            topWords.add(0, topK.poll());
+        return topWords;
+    }
 }
